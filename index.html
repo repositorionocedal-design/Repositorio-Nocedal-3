@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subir Archivos a Google Drive</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Subir Archivos a Google Drive</h1>
+
+    <form id="uploadForm">
+      <input type="file" id="fileInput" name="file" multiple required />
+      <button type="submit">Subir</button>
+    </form>
+
+    <progress id="progressBar" value="0" max="100"></progress>
+    <p id="status"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
