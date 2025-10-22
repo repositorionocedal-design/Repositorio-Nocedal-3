@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbw0oxER8VzdTSY7mZYDY94i04KfjXV0D2MvlvPZNrrTbavVy3Puqv7owFYwHA5vELMg/exec"; // <-- pega aquí la URL del paso anterior
+const scriptURL = "https://script.google.com/macros/s/AKfycbyzDUjeO0JFKH6C0vKFimyRdwt6v6pVJYarNuxCxlepzn-n9sXv3WYbvlVpQJIpYQf2/exec"; // <-- pega aquí la URL del paso anterior
 
 document.getElementById("form").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -40,3 +40,4 @@ document.getElementById("form").addEventListener("submit", async (e) => {
     result.innerHTML = "⚠️ Error de red o de conexión";
   }
 });
+
