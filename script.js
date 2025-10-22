@@ -3,7 +3,7 @@ const progressBarFill = document.getElementById('progressBarFill');
 const statusDiv = document.getElementById('status');
 
 // ⚠️ Reemplaza esto con tu URL de Web App de Google Apps Script
-const endpoint = 'https://script.google.com/macros/s/AKfycbwCKXEIGCAmzM3UJKBfhLI6YuYy8NT0X02nPY3QdPTLNWRp7ZM4H8mD2XwFJgjMPLf8/exec';
+const endpoint = 'https://script.google.com/macros/s/AKfycbytx4ILKKH3_OYxsNoo7rdAI0ZC02u-4LyuYV4VPDKjqR4Q_BIzc6DhL2J8CCqxjMMg/exec';
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -49,3 +49,4 @@ form.addEventListener('submit', function (e) {
 
   xhr.send(formData);
 });
+
