@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbwrIkjLKJb9tGV-V9JhQoEpUPXPzeIV9M5fZY-f0rWF-nQRprKF7nBGNmKKh4634WQ6/exec"; 
+const scriptURL = "https://script.google.com/macros/s/AKfycbx97E7vq_5l5hqqPECbHFr2MSk8vEuVjZVrySNKWywnKkk32WlWCr2uD23fkXYgOmue/exec"; 
 // Ejemplo: https://script.google.com/macros/s/AKfycbx1234567/exec
 
 const form = document.getElementById("uploadForm");
@@ -36,3 +36,4 @@ form.addEventListener("submit", async (e) => {
     statusText.textContent = "⚠️ Error de red o de servidor: " + error.message;
   }
 });
+
