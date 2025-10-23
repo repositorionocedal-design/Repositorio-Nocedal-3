@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subir Archivos a Google Drive</title>
+  <style>
+    body { 
+      font-family: Arial; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      background-color: #f7f9fc; 
+    }
+    .container {
+      background: white; 
+      padding: 20px 30px; 
+      border-radius: 15px; 
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    h2 { color: black; margin-bottom: 20px; }
+    input[type="file"] { margin-bottom: 15px; }
+    button {
+      background-color: #2f57eb; 
+      color: white; 
+      padding: 8px 25px; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer;
+    }
+    .msg {
+      margin-top: 15px; 
+      font-size: 14px; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Subir Archivos a Google Drive</h2>
+    <input type="file" id="file" multiple />
+    <br>
+    <button onclick="uploadFiles()">Subir</button>
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxwqGNVIWPOcYwhseFDRRTYFB_ux-v4Nj5yO1kx05LAdOLd1oLZJA-IHokOOuM-Yzs/exec";
+    
+    async function uploadFiles() {
+      const files = document.getElementById('file').files;
+      const msg = document.getElementById('msg');
+      if (files.length === 0) {
+        msg.innerHTML = "⚠️ Selecciona al menos un archivo.";
+        msg.style.color = "orange";
+        return;
+      }
+
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append(file.name, file);
+      }
+
+      msg.innerHTML = "⏳ Subiendo...";
+      msg.style.color = "black";
+
+      try {
+        const response = await fetch(scriptURL, { method: 'POST', body: formData });
+        const text = await response.text();
+
+        if (response.ok) {
+          msg.innerHTML = "✅ Archivos subidos correctamente.";
+          msg.style.color = "green";
+        } else {
+          msg.innerHTML = "❌ Error: " + text;
+          msg.style.color = "red";
+        }
+      } catch (err) {
+        msg.innerHTML = "❌ Error de red o permisos.";
+        msg.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
