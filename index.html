@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Subir hasta 3 archivos a Google Drive</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f6fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 360px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    input[type="file"] {
+      margin: 15px 0;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+      cursor: pointer;
+      transition: border 0.3s;
+    }
+
+    input[type="file"]:hover {
+      border-color: #4a7dff;
+    }
+
+    button {
+      background-color: #4a7dff;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background-color: #345de9;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Subir hasta 3 archivos a Google Drive</h2>
+    <form id="uploadForm">
+      <input type="file" id="files" name="files" multiple accept="image/*,application/pdf,.txt,.doc,.docx"/>
+      <button type="submit">Subir</button>
+    </form>
+    <div id="status" class="message"></div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyyqNPdIC84CHYU7IvAU18RQ4rfDmqoWTpN7x2pcQDP-ZigsVD0dTU4Vu3UBQ3hG0eA/exec";
+
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = document.getElementById("status");
+      const files = document.getElementById("files").files;
+
+      if (files.length === 0) {
+        status.innerHTML = "⚠️ Selecciona al menos un archivo.";
+        status.className = "message error";
+        return;
+      }
+
+      if (files.length > 3) {
+        status.innerHTML = "⚠️ Solo puedes subir hasta 3 archivos.";
+        status.className = "message error";
+        return;
+      }
+
+      status.innerHTML = "⏳ Subiendo...";
+      status.className = "message";
+
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("file" + i, files[i]);
+      }
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          status.innerHTML = "✅ Archivos subidos correctamente.";
+          status.className = "message success";
+        } else {
+          status.innerHTML = `❌ Error: ${result.error}`;
+          status.className = "message error";
+        }
+      } catch (err) {
+        console.error(err);
+        status.innerHTML = "⚠️ Error al conectar con el servidor.";
+        status.className = "message error";
+      }
+    });
+  </script>
+</body>
+</html>
+
